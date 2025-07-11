@@ -27,6 +27,10 @@ def get_reply_emails(token):
     r = requests.get(url, headers=headers)
     return r.json()['value']
 
+import json
+import re
+from bs4 import BeautifulSoup
+
 def update_mapping(emails):
     try:
         with open('email_city_map.json', 'r', encoding='utf-8') as f:
@@ -45,7 +49,9 @@ def update_mapping(emails):
             plain_text = soup.body.get_text(strip=True)
         else:
             plain_text = soup.get_text(strip=True)
-        city = plain_text.split()[0] if plain_text else ""
+        # 提取正文开头的连续汉字作为城市名
+        match = re.match(r'^([\u4e00-\u9fff]{2,5})', plain_text)
+        city = match.group(1) if match else ""
         if city and sender and (sender not in mapping):
             mapping[sender] = city
             new_bindings.append((sender, city))
