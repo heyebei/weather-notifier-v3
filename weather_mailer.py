@@ -9,6 +9,10 @@ def get_weather(city: str, api_key: str) -> str:
         'lang': 'zh_cn'
     }
     response = requests.get(url, params=params).json()
+    if 'weather' not in response or 'main' not in response:
+        # 这里可以记录 response，或者处理不同的错误码
+        error_msg = response.get('message', '未知错误')
+        raise ValueError(f"获取天气失败: {error_msg}")
     weather = response['weather'][0]['description']
     temp = response['main']['temp']
     return f"{city} 当前天气：{weather}，温度：{temp:.1f}°C"
