@@ -32,3 +32,16 @@ jobs:
           TENANT_ID: ${{ secrets.TENANT_ID }}
           FROM_USER: ${{ secrets.FROM_USER }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+
+      - name: Set up Git for commit
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and Push changes
+        run: |
+          git add email_city_map.json
+          git commit -m "Update email-city mapping [skip ci]" || echo "No changes to commit"
+          git push origin HEAD:${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
