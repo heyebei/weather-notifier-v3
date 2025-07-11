@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import time
+from bs4 import BeautifulSoup
 
 from_user = os.environ['FROM_USER']
 client_id = os.environ['CLIENT_ID']
@@ -34,9 +35,14 @@ def update_mapping(emails):
         mapping = {}
 
     new_bindings = []
+
+
     for mail in emails:
         sender = mail['from']['emailAddress']['address']
-        city = mail.get('body', {}).get('content', '').strip().split()[0]
+        html_content = mail.get('body', {}).get('content', '').strip()
+        soup = BeautifulSoup(html_content, 'html.parser')
+        city_text = soup.get_text().strip()
+        city = city_text.split()[0] if city_text else ""
         if city and sender and (sender not in mapping):
             mapping[sender] = city
             new_bindings.append((sender, city))
