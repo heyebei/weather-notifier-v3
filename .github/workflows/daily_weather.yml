@@ -23,6 +23,7 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           TENANT_ID: ${{ secrets.TENANT_ID }}
           FROM_USER: ${{ secrets.FROM_USER }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
       - name: Send Weather to Bound Emails
         run: python send_weather.py
         env:
