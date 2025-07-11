@@ -22,4 +22,4 @@ for recipient in recipients:
         content=content
     )
     print(f"已发送绑定请求至 {recipient}")
-time.sleep(500)  # 避免请求过快导致 API 限制
+

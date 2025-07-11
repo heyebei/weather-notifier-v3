@@ -44,3 +44,12 @@ jobs:
           git push origin HEAD:${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.HUB_TOKEN }}
+      - name: Send certain email
+        run: python _init_.py
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          TENANT_ID: ${{ secrets.TENANT_ID }}
+          FROM_USER: ${{ secrets.FROM_USER }}
+          RECIPIENTS: ${{ secrets.RECIPIENTS }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
