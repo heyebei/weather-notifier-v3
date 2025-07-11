@@ -29,20 +29,23 @@ def get_reply_emails(token):
 
 def update_mapping(emails):
     try:
-        with open('email_city_map.json', 'r') as f:
+        with open('email_city_map.json', 'r', encoding='utf-8') as f:
             mapping = json.load(f)
-    except:
+    except Exception:
         mapping = {}
 
     new_bindings = []
 
-
     for mail in emails:
         sender = mail['from']['emailAddress']['address']
         html_content = mail.get('body', {}).get('content', '').strip()
+        # 只取body内容
         soup = BeautifulSoup(html_content, 'html.parser')
-        city_text = soup.get_text().strip()
-        city = city_text.split()[0] if city_text else ""
+        if soup.body:
+            plain_text = soup.body.get_text(strip=True)
+        else:
+            plain_text = soup.get_text(strip=True)
+        city = plain_text.split()[0] if plain_text else ""
         if city and sender and (sender not in mapping):
             mapping[sender] = city
             new_bindings.append((sender, city))
@@ -50,7 +53,6 @@ def update_mapping(emails):
     with open('email_city_map.json', 'w', encoding="utf-8") as f:
         json.dump(mapping, f, ensure_ascii=False, indent=2)
     print("✅ 邮箱-城市映射已更新")
-
 
     # 发送确认邮件
 def send_email():
