@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from weather_mailer import get_access_token, send_email
 
 # 环境变量
@@ -21,3 +22,4 @@ for recipient in recipients:
         content=content
     )
     print(f"已发送绑定请求至 {recipient}")
+time.sleep(500)  # 避免请求过快导致 API 限制
