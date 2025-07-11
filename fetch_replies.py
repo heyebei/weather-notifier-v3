@@ -40,9 +40,10 @@ def update_mapping(emails):
             mapping[sender] = city
             new_bindings.append((sender, city))
 
-    with open('email_city_map.json', 'w') as f:
+    with open('email_city_map.json', 'w', encoding="utf-8") as f:
         json.dump(mapping, f, ensure_ascii=False, indent=2)
     print("✅ 邮箱-城市映射已更新")
+
 
     # 发送确认邮件
     if new_bindings:
