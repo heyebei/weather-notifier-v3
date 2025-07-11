@@ -22,6 +22,14 @@ jobs:
           TENANT_ID: ${{ secrets.TENANT_ID }}
           FROM_USER: ${{ secrets.FROM_USER }}
           RECIPIENTS: ${{ secrets.RECIPIENTS }}
+      - name: update_email_city_map
+        run: python fetch_replies.py
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          TENANT_ID: ${{ secrets.TENANT_ID }}
+          FROM_USER: ${{ secrets.FROM_USER }}
+          RECIPIENTS: ${{ secrets.RECIPIENTS }}
       - name: Set up Git for commit
         run: |
           git config --global user.name "github-actions[bot]"

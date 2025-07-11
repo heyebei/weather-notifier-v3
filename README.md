@@ -18,6 +18,7 @@
 | FROM_USER        | 发件邮箱（必须为组织用户） |
 | WEATHER_API_KEY  | OpenWeatherMap 的 API Key  |
 | RECIPIENTS       | 初始绑定的邮箱（逗号分隔） |
+| HUB_TOKEN       | GITHUB_TOKEN |
 
 2. 第一步运行绑定命令
 
