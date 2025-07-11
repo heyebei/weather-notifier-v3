@@ -41,6 +41,7 @@ jobs:
         run: |
           git add email_city_map.json
           git commit -m "Update email-city mapping [skip ci]" || echo "No changes to commit"
+          git pull
           git push origin HEAD:${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.HUB_TOKEN }}
