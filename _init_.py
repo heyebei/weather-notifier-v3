@@ -2,7 +2,10 @@ import os
 import json
 import requests
 import time
-
+from_user = os.environ['FROM_USER']
+client_id = os.environ['CLIENT_ID']
+client_secret = os.environ['CLIENT_SECRET']
+tenant_id = os.environ['TENANT_ID']
 def send_email():
     from weather_mailer import send_email, get_access_token, get_weather
     token = get_access_token(client_id, client_secret, tenant_id)
